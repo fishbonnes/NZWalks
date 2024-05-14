@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NZWalks2.API.Data;
+using NZWalks2.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContext<NZWalks2DBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalks2"));
 });
+
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
